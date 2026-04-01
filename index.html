@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Мои задачи</title>
 
+<title>Напоминалка⏰</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="icon" href="https://img.freepik.com/premium-vector/ringing-alarm-clock-with-two-bells-illustration-cartoon-isolated-dinamic-image-green-yellow-color-morning-alarm-clock_124848-425.jpg" type="image/jpeg">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
 <style>
@@ -15,103 +16,57 @@ body {
   transition: 0.4s;
 }
 
-/* 🌌 ТЕМА 1 — СИНЕЕ ЖИДКОЕ СТЕКЛО */
+/* 🌌 ТЕМА 1 */
 body.theme1 {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-}
-
-/* 🖤 ТЕМА 2 — ЧЁРНОЕ ЖИДКОЕ СТЕКЛО */
-body.theme2 {
-  background: linear-gradient(135deg, #0f0f10, #1b1b2a);
-  color: white;
-}
-
-/* 🪟 ОБЩЕЕ СТЕКЛО */
-.карточка {
-  border-radius: 20px;
-  backdrop-filter: blur(18px);
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.2);
-  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-}
-
-.элемент {
-  border-radius: 15px;
-  backdrop-filter: blur(12px);
-  background: rgba(255,255,255,0.15);
-  transition: 0.3s;
-  color: white;
-}
-
-.элемент:hover {
-  transform: translateY(-3px) scale(1.01);
-}
-
-/* input glass */
-input {
-  border-radius: 12px !important;
-  border: none !important;
-  background: rgba(255,255,255,0.15) !important;
-  color: white !important;
-}
-
-input::placeholder {
-  color: rgba(255,255,255,0.7);
-}
-
-/* кнопки */
-.btn {
-  border-radius: 10px !important;
-  transition: 0.2s;
-}
-.btn:hover { transform: scale(1.08); }
-
-.выполнено {
-  text-decoration: line-through;
-  opacity: 0.6;
-}
-
-/* прогресс */
-.progress {
-  height: 12px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.2);
-}
-/* 🎯 АДАПТИВНЫЙ ЦВЕТ ТЕКСТА */
-
-/* основный текст */
-body.theme1 {
+  background: radial-gradient(circle at 10% 20%, #7aa2ff 0%, transparent 40%),
+              radial-gradient(circle at 90% 80%, #b07cff 0%, transparent 45%),
+              linear-gradient(135deg, #1b1f3a, #2a1f4a);
   --text-main: #ffffff;
   --text-soft: rgba(255,255,255,0.75);
 }
 
+/* 🖤 ТЕМА 2 */
 body.theme2 {
+  background: radial-gradient(circle at 20% 30%, #333 0%, transparent 40%),
+              radial-gradient(circle at 80% 70%, #111 0%, transparent 45%),
+              linear-gradient(135deg, #0a0a0a, #151515);
   --text-main: #eaeaea;
   --text-soft: rgba(255,255,255,0.65);
 }
 
-/* применяем */
-body {
-  color: var(--text-main);
+/* TEXT */
+body { color: var(--text-main); }
+h1,h5,b { color: var(--text-main); }
+small { color: var(--text-soft); }
+
+/* GLASS */
+.карточка {
+  border-radius: 22px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(25px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+  position: relative;
+  overflow: hidden;
 }
 
-h1, h5, b {
-  color: var(--text-main);
-}
-
-small {
-  color: var(--text-soft);
-}
-
-/* текст в карточках */
-.карточка,
 .элемент {
-  color: var(--text-main);
+  border-radius: 16px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(18px);
+  transition: 0.3s;
 }
 
-/* input текст */
+.элемент:hover {
+  transform: translateY(-4px);
+}
+
+/* INPUT */
 input {
+  border-radius: 12px !important;
+  border: 1px solid rgba(255,255,255,0.15) !important;
+  background: rgba(255,255,255,0.08) !important;
   color: var(--text-main) !important;
 }
 
@@ -119,15 +74,36 @@ input::placeholder {
   color: var(--text-soft);
 }
 
-/* кнопка темы (чтобы не слепила) */
-#themeBtn {
-  color: var(--text-main);
-  border-color: rgba(255,255,255,0.3);
+/* BUTTONS */
+.btn {
+  border-radius: 12px !important;
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: 0.2s;
+}
+.btn:hover { transform: scale(1.07); }
+
+.btn-success { background: rgba(0,255,120,0.25); }
+.btn-warning { background: rgba(255,180,0,0.25); }
+.btn-danger  { background: rgba(255,60,60,0.25); }
+.btn-primary { background: rgba(100,150,255,0.25); }
+
+/* PROGRESS */
+.progress {
+  height: 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.1);
 }
 
-/* прогресс текст */
-#stats {
-  color: var(--text-main);
+.progress-bar {
+  background: linear-gradient(90deg, #00f5a0, #00d9f5);
+}
+
+.выполнено {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+#stats{
+  color:azure;
 }
 </style>
 </head>
@@ -137,23 +113,26 @@ input::placeholder {
 <div class="container py-5">
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-  <h1>📌 Мои задачи</h1>
+  <h1>🎯 Мои цели</h1>
 
   <button id="themeBtn" class="btn btn-outline-light">
-    <i class="bi bi-droplet"></i> Тема
+    <i class="bi bi-droplet">Тема</i>
   </button>
 </div>
 
-<!-- Добавление -->
+<!-- FORM -->
 <div class="card карточка mb-4 p-2">
   <div class="card-body">
     <form id="form">
       <div class="row g-2">
-        <div class="col-md-5">
+        <div class="col-md-4">
           <input type="text" id="title" class="form-control" placeholder="Название" required>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-4">
           <input type="text" id="desc" class="form-control" placeholder="Описание">
+        </div>
+        <div class="col-md-2">
+          <input type="datetime-local" id="date" class="form-control">
         </div>
         <div class="col-md-2">
           <button class="btn btn-primary w-100">
@@ -165,7 +144,7 @@ input::placeholder {
   </div>
 </div>
 
-<!-- список -->
+<!-- LIST -->
 <div class="card карточка mb-4 p-2">
   <div class="card-body">
     <h5>Список задач</h5>
@@ -173,7 +152,7 @@ input::placeholder {
   </div>
 </div>
 
-<!-- статистика -->
+<!-- STATS -->
 <div class="card карточка p-2">
   <div class="card-body">
     <h5>📊 Статистика</h5>
@@ -185,41 +164,51 @@ input::placeholder {
 
 <script>
 let задачи = JSON.parse(localStorage.getItem('задачи')) || [];
-
-/* 🌗 темы: 1 или 2 */
 let theme = localStorage.getItem('theme') || 'theme1';
+
 document.body.className = theme;
 
-let list = document.getElementById('list');
-let stats = document.getElementById('stats');
-let themeBtn = document.getElementById('themeBtn');
+const list = document.getElementById('list');
+const stats = document.getElementById('stats');
+const themeBtn = document.getElementById('themeBtn');
 
-/* переключение темы */
+/* THEME */
 themeBtn.onclick = () => {
-  if(document.body.classList.contains('theme1')){
-    document.body.className = 'theme2';
-    localStorage.setItem('theme','theme2');
-  } else {
-    document.body.className = 'theme1';
-    localStorage.setItem('theme','theme1');
-  }
-}
+  const newTheme = document.body.classList.contains('theme1') ? 'theme2' : 'theme1';
+  document.body.className = newTheme;
+  localStorage.setItem('theme', newTheme);
+};
 
+/* SAVE */
 function save(){
   localStorage.setItem('задачи', JSON.stringify(задачи));
 }
 
+/* ADD */
+function add(t,d,date){
+  задачи.push({
+    title: t,
+    desc: d,
+    date: date || new Date().toISOString(),
+    done: false
+  });
+}
+
+/* RENDER */
 function render(){
   list.innerHTML = '';
 
   задачи.forEach((z,i)=>{
-    let div = document.createElement('div');
+    const div = document.createElement('div');
     div.className = 'элемент p-3 d-flex justify-content-between align-items-center';
 
     div.innerHTML = `
       <div>
         <b class="${z.done ? 'выполнено' : ''}">${z.title}</b><br>
-        <small>${z.desc || ''}</small>
+        <small>
+          ${z.desc || ''}<br>
+          🕒 ${new Date(z.date).toLocaleString()}
+        </small>
       </div>
       <div>
         <button onclick="toggle(${i})" class="btn btn-success btn-sm me-1"><i class="bi bi-check"></i></button>
@@ -227,6 +216,7 @@ function render(){
         <button onclick="del(${i})" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
       </div>
     `;
+
     list.appendChild(div);
   });
 
@@ -234,45 +224,48 @@ function render(){
   save();
 }
 
+/* STATS */
 function renderStats(){
-  let total = задачи.length;
-  let done = задачи.filter(z=>z.done).length;
-  let percent = total ? Math.round(done/total*100) : 0;
+  const total = задачи.length;
+  const done = задачи.filter(z=>z.done).length;
+  const percent = total ? Math.round(done/total*100) : 0;
 
   stats.innerHTML = `
     Всего: <b>${total}</b><br>
     Выполнено: <b>${done}</b><br>
     Прогресс: <b>${percent}%</b>
     <div class="progress mt-2">
-      <div class="progress-bar bg-success" style="width:${percent}%"></div>
+      <div class="progress-bar" style="width:${percent}%"></div>
     </div>
   `;
 }
 
-function add(t,d){
-  задачи.push({title:t,desc:d,done:false});
-  save(); render();
-}
+/* ACTIONS */
+function toggle(i){ задачи[i].done = !задачи[i].done; render(); }
+function del(i){ задачи.splice(i,1); render(); }
 
 function edit(i){
-  let t = prompt('Название', задачи[i].title);
-  if(t===null) return;
-  let d = prompt('Описание', задачи[i].desc);
-  задачи[i].title=t;
-  задачи[i].desc=d;
-  save(); render();
+  const t = prompt('Название', задачи[i].title);
+  if(t === null) return;
+  const d = prompt('Описание', задачи[i].desc);
+  задачи[i].title = t;
+  задачи[i].desc = d;
+  render();
 }
 
-function del(i){ задачи.splice(i,1); save(); render(); }
-function toggle(i){ задачи[i].done=!задачи[i].done; save(); render(); }
-
-form.addEventListener('submit', e=>{
+/* FIXED FORM (ВАЖНО) */
+document.getElementById('form').addEventListener('submit', e=>{
   e.preventDefault();
-  let t = title.value.trim();
-  let d = desc.value.trim();
+
+  const t = document.getElementById('title').value.trim();
+  const d = document.getElementById('desc').value.trim();
+  const date = document.getElementById('date').value;
+
   if(!t) return;
-  add(t,d);
-  form.reset();
+
+  add(t,d,date);
+  e.target.reset();
+  render();
 });
 
 render();
