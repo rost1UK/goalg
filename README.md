@@ -13,6 +13,8 @@ Smooth gradients and soft shadows
 Light and dark theme support
 Adaptive and responsive layout for all screen sizes
 This project is ideal for showcasing modern UI/UX trends and can be easily deployed on any web server.
+
+
 🇷🇺 Русский
 Планировщик целей – Liquid Glass дизайн (Bootstrap)
 Планировщик целей — это современное веб-приложение для удобного управления задачами и целями. Интерфейс разработан с использованием Bootstrap и оформлен в стиле liquid glass (эффект стекла), создавая полупрозрачный, плавный и стильный внешний вид.
@@ -28,6 +30,9 @@ This project is ideal for showcasing modern UI/UX trends and can be easily deplo
 Поддержка светлой и тёмной темы
 Адаптивность под любые устройства
 Проект отлично подходит для демонстрации современного UI/UX и может быть легко размещён на сервере.
+
+
+
 🇪🇸 Español
 Planificador de Objetivos – Diseño Liquid Glass (Bootstrap)
 El Planificador de Objetivos es una aplicación web moderna diseñada para organizar tareas y metas de manera eficiente. Está construida con Bootstrap y utiliza un elegante diseño liquid glass (glassmorphism) que ofrece un efecto visual suave y translúcido.
