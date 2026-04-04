@@ -15,9 +15,6 @@ body {
   font-family: 'Segoe UI', sans-serif;
   transition: 0.4s;
   color:azure;
-  input::placeholder {
-    color: azure;
-  }
 }
 
 /* 🌌 ТЕМА 1 */
@@ -70,7 +67,7 @@ input {
 }
 
 input::placeholder {
-  color: var(--text-soft);
+  color: azure;
 }
 
 .выполнено {
@@ -179,8 +176,8 @@ function render(){
 
     if(z.editing){
       div.innerHTML = `
-        <input id="et${i}" class="form-control mb-2" value="${z.title}" oninput="autoSave(${i})">
-        <input id="ed${i}" class="form-control mb-2" value="${z.desc || ''}" oninput="autoSave(${i})">
+        <input id="et${i}" class="form-control mb-2" value="${z.title}" oninput="autoSave(${i})" placeholder="Название">
+        <input id="ed${i}" class="form-control mb-2" value="${z.desc || ''}" oninput="autoSave(${i})" placeholder="Описание">
         <input id="edate${i}" type="datetime-local" class="form-control mb-2" 
           value="${formatDateForInput(z.date)}"
           onchange="autoSave(${i})"
