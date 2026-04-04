@@ -14,7 +14,7 @@ body {
   min-height: 100vh;
   font-family: 'Segoe UI', sans-serif;
   transition: 0.4s;
-  color:azure;
+  color: azure;
 }
 
 /* 🌌 ТЕМА 1 */
@@ -66,8 +66,22 @@ input {
   color: var(--text-main) !important;
 }
 
+/* ✅ FIX PLACEHOLDER */
 input::placeholder {
-  color: azure;
+  color: azure !important;
+  opacity: 1;
+}
+
+input::-webkit-input-placeholder {
+  color: azure !important;
+}
+
+input:-ms-input-placeholder {
+  color: azure !important;
+}
+
+input::-ms-input-placeholder {
+  color: azure !important;
 }
 
 .выполнено {
@@ -112,7 +126,7 @@ input::placeholder {
 
 <!-- LIST -->
 <div class="card карточка mb-4 p-2">
-  <div class="card-body" style="color:azure;">
+  <div class="card-body">
     <h5>Список задач</h5>
     <div id="list" class="d-flex flex-column gap-2"></div>
   </div>
@@ -120,9 +134,9 @@ input::placeholder {
 
 <!-- STATS -->
 <div class="card карточка p-2">
-  <div class="card-body" style="color:azure;">
+  <div class="card-body">
     <h5>📊 Статистика</h5>
-    <div id="stats" style="b{color:azure;}"></div>
+    <div id="stats"></div>
   </div>
 </div>
 
@@ -160,7 +174,7 @@ function add(t,d,date){
   });
 }
 
-/* FORMAT FOR INPUT */
+/* FORMAT */
 function formatDateForInput(dateStr){
   const d = new Date(dateStr);
   return d.toISOString().slice(0,16);
@@ -239,7 +253,7 @@ function renderStats(){
     Выполнено: <b>${done}</b><br>
     Прогресс: <b>${percent}%</b>
     <div class="progress mt-2">
-      <div class="progress-bar" style="width:${percent}%; transition:5s;"></div>
+      <div class="progress-bar" style="width:${percent}%; transition:0.5s;"></div>
     </div>
   `;
 }
