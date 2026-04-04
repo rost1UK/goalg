@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Напоминалка⏰</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="icon" href="https://img.freepik.com/premium-vector/ringing-alarm-clock-with-two-bells-illustration-cartoon-isolated-dinamic-image-green-yellow-color-morning-alarm-clock_124848-425.jpg" type="image/jpeg">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
 <style>
@@ -34,9 +34,7 @@ body.theme2 {
   --text-soft: rgba(255,255,255,0.65);
 }
 
-/* TEXT */
 body { color: var(--text-main); }
-h1,h5,b { color: var(--text-main); }
 small { color: var(--text-soft); }
 
 /* GLASS */
@@ -45,9 +43,6 @@ small { color: var(--text-soft); }
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.18);
   backdrop-filter: blur(25px);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.35);
-  position: relative;
-  overflow: hidden;
 }
 
 .элемент {
@@ -62,7 +57,7 @@ small { color: var(--text-soft); }
   transform: translateY(-4px);
 }
 
-/* INPUT */
+/* INPUT GLASS */
 input {
   border-radius: 12px !important;
   border: 1px solid rgba(255,255,255,0.15) !important;
@@ -74,36 +69,9 @@ input::placeholder {
   color: var(--text-soft);
 }
 
-/* BUTTONS */
-.btn {
-  border-radius: 12px !important;
-  border: 1px solid rgba(255,255,255,0.15);
-  transition: 0.2s;
-}
-.btn:hover { transform: scale(1.07); }
-
-.btn-success { background: rgba(0,255,120,0.25); }
-.btn-warning { background: rgba(255,180,0,0.25); }
-.btn-danger  { background: rgba(255,60,60,0.25); }
-.btn-primary { background: rgba(100,150,255,0.25); }
-
-/* PROGRESS */
-.progress {
-  height: 12px;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.1);
-}
-
-.progress-bar {
-  background: linear-gradient(90deg, #00f5a0, #00d9f5);
-}
-
 .выполнено {
   text-decoration: line-through;
   opacity: 0.6;
-}
-#stats{
-  color:azure;
 }
 </style>
 </head>
@@ -114,10 +82,7 @@ input::placeholder {
 
 <div class="d-flex justify-content-between align-items-center mb-4">
   <h1>🎯 Мои цели</h1>
-
-  <button id="themeBtn" class="btn btn-outline-light">
-    <i class="bi bi-droplet">Тема</i>
-  </button>
+  <button id="themeBtn" class="btn btn-outline-light">Тема</button>
 </div>
 
 <!-- FORM -->
@@ -170,13 +135,12 @@ document.body.className = theme;
 
 const list = document.getElementById('list');
 const stats = document.getElementById('stats');
-const themeBtn = document.getElementById('themeBtn');
 
 /* THEME */
-themeBtn.onclick = () => {
-  const newTheme = document.body.classList.contains('theme1') ? 'theme2' : 'theme1';
-  document.body.className = newTheme;
-  localStorage.setItem('theme', newTheme);
+document.getElementById('themeBtn').onclick = () => {
+  const t = document.body.classList.contains('theme1') ? 'theme2' : 'theme1';
+  document.body.className = t;
+  localStorage.setItem('theme', t);
 };
 
 /* SAVE */
@@ -190,8 +154,15 @@ function add(t,d,date){
     title: t,
     desc: d,
     date: date || new Date().toISOString(),
-    done: false
+    done: false,
+    editing: false
   });
+}
+
+/* FORMAT FOR INPUT */
+function formatDateForInput(dateStr){
+  const d = new Date(dateStr);
+  return d.toISOString().slice(0,16);
 }
 
 /* RENDER */
@@ -200,22 +171,40 @@ function render(){
 
   задачи.forEach((z,i)=>{
     const div = document.createElement('div');
-    div.className = 'элемент p-3 d-flex justify-content-between align-items-center';
+    div.className = 'элемент p-3';
 
-    div.innerHTML = `
-      <div>
-        <b class="${z.done ? 'выполнено' : ''}">${z.title}</b><br>
-        <small>
-          ${z.desc || ''}<br>
-          🕒 ${new Date(z.date).toLocaleString()}
-        </small>
-      </div>
-      <div>
-        <button onclick="toggle(${i})" class="btn btn-success btn-sm me-1"><i class="bi bi-check"></i></button>
-        <button onclick="edit(${i})" class="btn btn-warning btn-sm me-1"><i class="bi bi-pencil"></i></button>
-        <button onclick="del(${i})" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
-      </div>
-    `;
+    if(z.editing){
+      div.innerHTML = `
+        <input id="et${i}" class="form-control mb-2" value="${z.title}" oninput="autoSave(${i})">
+        <input id="ed${i}" class="form-control mb-2" value="${z.desc || ''}" oninput="autoSave(${i})">
+        <input id="edate${i}" type="datetime-local" class="form-control mb-2" 
+          value="${formatDateForInput(z.date)}"
+          onchange="autoSave(${i})"
+        >
+        <div class="text-end">
+          <button onclick="finishEdit(${i})" class="btn btn-success btn-sm">
+            <i class="bi bi-check"></i>
+          </button>
+        </div>
+      `;
+    } else {
+      div.classList.add('d-flex','justify-content-between','align-items-center');
+
+      div.innerHTML = `
+        <div>
+          <b class="${z.done ? 'выполнено':''}">${z.title}</b><br>
+          <small>
+            ${z.desc || ''}<br>
+            🕒 ${new Date(z.date).toLocaleString()}
+          </small>
+        </div>
+        <div>
+          <button onclick="toggle(${i})" class="btn btn-success btn-sm me-1"><i class="bi bi-check"></i></button>
+          <button onclick="edit(${i})" class="btn btn-warning btn-sm me-1"><i class="bi bi-pencil"></i></button>
+          <button onclick="del(${i})" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
+        </div>
+      `;
+    }
 
     list.appendChild(div);
   });
@@ -223,6 +212,20 @@ function render(){
   renderStats();
   save();
 }
+
+/* AUTOSAVE */
+function autoSave(i){
+  задачи[i].title = document.getElementById('et'+i).value;
+  задачи[i].desc = document.getElementById('ed'+i).value;
+  задачи[i].date = document.getElementById('edate'+i).value;
+  save();
+}
+
+/* ACTIONS */
+function edit(i){ задачи[i].editing = true; render(); }
+function finishEdit(i){ задачи[i].editing = false; render(); }
+function toggle(i){ задачи[i].done = !задачи[i].done; render(); }
+function del(i){ задачи.splice(i,1); render(); }
 
 /* STATS */
 function renderStats(){
@@ -240,25 +243,12 @@ function renderStats(){
   `;
 }
 
-/* ACTIONS */
-function toggle(i){ задачи[i].done = !задачи[i].done; render(); }
-function del(i){ задачи.splice(i,1); render(); }
-
-function edit(i){
-  const t = prompt('Название', задачи[i].title);
-  if(t === null) return;
-  const d = prompt('Описание', задачи[i].desc);
-  задачи[i].title = t;
-  задачи[i].desc = d;
-  render();
-}
-
-/* FIXED FORM (ВАЖНО) */
+/* FORM */
 document.getElementById('form').addEventListener('submit', e=>{
   e.preventDefault();
 
-  const t = document.getElementById('title').value.trim();
-  const d = document.getElementById('desc').value.trim();
+  const t = title.value.trim();
+  const d = desc.value.trim();
   const date = document.getElementById('date').value;
 
   if(!t) return;
